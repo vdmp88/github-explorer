@@ -1,19 +1,6 @@
 import { Card, CardContent, CardActions, Button, Typography, Avatar, Box, Link, Divider } from '@mui/material'
 import { Star, Language as LanguageIcon, Visibility as VisibilityIcon } from '@mui/icons-material'
-
-interface GitHubRepo {
-    id: number
-    name: string
-    html_url: string
-    description: string | null
-    stargazers_count: number
-    language: string | null
-    owner: {
-        avatar_url: string
-        login: string
-    }
-    forks_count: number
-}
+import { GitHubRepo } from '@/types'
 
 interface GitHubRepoCardProps {
     repo: GitHubRepo

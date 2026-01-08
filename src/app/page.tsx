@@ -1,30 +1,11 @@
 import RepoGrid from '@/components/features/RepoGrid'
+import { apiFetch } from '@/lib/api'
+import { GitHubSearchResponse } from '@/types'
 
 export default async function Home() {
-    const response = await fetch(
-        'https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=100',
-        {
-            headers: {
-                Authorization: `token ${process.env.GITHUB_TOKEN}`,
-                Accept: 'application/vnd.github.v3+json',
-                'X-GitHub-Api-Version': '2022-11-28',
-            },
-            next: { revalidate: 3600 },
-        }
+    const data: GitHubSearchResponse = await apiFetch(
+        '/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=100'
     )
 
-    if (!response.ok) {
-        return <div>Error fetching GitHub API: {response.status}</div>
-    }
-
-    const data = await response.json()
-    const repos = data.items
-
-    console.log(repos)
-
-    return (
-        <>
-            <RepoGrid repos={repos} />
-        </>
-    )
+    return <RepoGrid repos={data.items} />
 }
