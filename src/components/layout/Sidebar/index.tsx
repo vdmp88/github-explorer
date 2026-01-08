@@ -80,7 +80,7 @@ export function Sidebar({ children }: SidebarProps) {
                                         <MailIcon />
                                     )}
                                 </ListItemIcon>
-                                    <ListItemText primary={text} />
+                                <ListItemText primary={text} />
                             </ListItemButton>
                         </ListItem>
                     ))}
