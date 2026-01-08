@@ -1,19 +1,5 @@
-import {
-    Card,
-    CardContent,
-    CardActions,
-    Button,
-    Typography,
-    Avatar,
-    Box,
-    Link,
-    Divider,
-} from '@mui/material'
-import {
-    Star,
-    Language as LanguageIcon,
-    Visibility as VisibilityIcon,
-} from '@mui/icons-material'
+import { Card, CardContent, CardActions, Button, Typography, Avatar, Box, Link, Divider } from '@mui/material'
+import { Star, Language as LanguageIcon, Visibility as VisibilityIcon } from '@mui/icons-material'
 
 interface GitHubRepo {
     id: number
@@ -51,11 +37,7 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
         >
             <CardContent sx={{ flexGrow: 1 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <Avatar
-                        alt={repo.owner.login}
-                        src={repo.owner.avatar_url}
-                        sx={{ width: 48, height: 48, mr: 2 }}
-                    />
+                    <Avatar alt={repo.owner.login} src={repo.owner.avatar_url} sx={{ width: 48, height: 48, mr: 2 }} />
                     <Box>
                         <Typography variant="h6" component="h2" noWrap>
                             {repo.name}
@@ -98,9 +80,7 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
                                     color: 'text.secondary',
                                 }}
                             />
-                            <Typography variant="body2">
-                                {repo.language}
-                            </Typography>
+                            <Typography variant="body2">{repo.language}</Typography>
                         </Box>
                     )}
 
@@ -112,9 +92,7 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
                                 color: 'text.secondary',
                             }}
                         />
-                        <Typography variant="body2">
-                            {repo.stargazers_count}
-                        </Typography>
+                        <Typography variant="body2">{repo.stargazers_count}</Typography>
                     </Box>
 
                     <Box display="flex" alignItems="center">
@@ -125,9 +103,7 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
                                 color: 'text.secondary',
                             }}
                         />
-                        <Typography variant="body2">
-                            Forks: {repo.forks_count}
-                        </Typography>
+                        <Typography variant="body2">Forks: {repo.forks_count}</Typography>
                     </Box>
                 </Box>
             </CardContent>
@@ -135,12 +111,7 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
             <Divider />
 
             <CardActions>
-                <Link
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener"
-                    underline="none"
-                >
+                <Link href={repo.html_url} target="_blank" rel="noopener" underline="none">
                     <Button size="small" color="primary">
                         Go to repository
                     </Button>
