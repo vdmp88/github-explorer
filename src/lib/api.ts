@@ -1,6 +1,4 @@
 export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const baseUrl = 'https://api.github.com'
-
     const headers = {
         Accept: 'application/vnd.github.v3+json',
         Authorization: `token ${process.env.GITHUB_TOKEN}`,
@@ -8,13 +6,11 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
         ...(options.headers || {}),
     }
 
-    const res = await fetch(`${baseUrl}${endpoint}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
         ...options,
         headers,
         next: { revalidate: 3600 },
     })
-
-    console.log('Fetch response:', res)
 
     if (!res.ok) {
         throw new Error(`Fetch error: ${res.status} ${res.statusText}`)

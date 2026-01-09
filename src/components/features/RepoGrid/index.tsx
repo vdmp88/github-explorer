@@ -2,7 +2,8 @@
 
 import GitHubRepoCard from '@/components/features/GitHubRepoCard'
 import Masonry from 'react-masonry-css'
-import { GitHubRepo } from '@/types'
+import { GitHubRepo, GitHubSearchResponse } from '@/types/github'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 interface RepoGridProps {
     repos: GitHubRepo[]
