@@ -12,6 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
+import { SignOut } from '@/components/features/SignOut'
 
 const drawerWidth = 240
 
@@ -70,6 +71,7 @@ export function Sidebar({ children }: SidebarProps) {
                             </ListItemButton>
                         </ListItem>
                     ))}
+                    <SignOut />
                 </List>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
