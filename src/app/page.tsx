@@ -7,6 +7,14 @@ export default async function Home() {
         '/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=20&page=1'
     )
 
-
-    return <RepoGrid repos={data.items} />
+    return (
+        <RepoGrid
+            initialData={{
+                items: data.items,
+                totalCount: data.total_count,
+                page: 1,
+                perPage: 20,
+            }}
+        />
+    )
 }
