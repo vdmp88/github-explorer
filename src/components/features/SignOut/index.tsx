@@ -1,16 +1,19 @@
 'use client'
 
 import LogoutIcon from '@mui/icons-material/Logout'
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import Button from '@mui/material/Button'
 import { signOut } from 'next-auth/react'
 
 export const SignOut = () => {
     return (
-        <ListItemButton onClick={() => signOut({ callbackUrl: '/api/auth/signin' })}>
-            <ListItemIcon>
-                <LogoutIcon />
-            </ListItemIcon>
-            <ListItemText primary="Sign out" />
-        </ListItemButton>
+        <Button
+        style={{ marginTop: 'auto', marginBottom: 16, justifyContent: 'center'}}
+            onClick={() => signOut({ callbackUrl: '/api/auth/signin' })}
+            startIcon={<LogoutIcon />}
+            
+            sx={{ justifyContent: 'flex-start', width: '100%' }}
+        >
+            Sign out
+        </Button>
     )
 }

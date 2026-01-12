@@ -6,15 +6,10 @@ import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
 import { SignOut } from '@/components/features/SignOut'
+import { UserProfile } from './UserProfile'
 
-const drawerWidth = 240
+const drawerWidth = 320
 
 interface SidebarProps {
     children: React.ReactNode
@@ -52,27 +47,10 @@ export function Sidebar({ children }: SidebarProps) {
                 <Toolbar />
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    <UserProfile />
+                    <Divider />
                 </List>
-                <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                    <SignOut />
-                </List>
+                <SignOut />
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
                 <Toolbar />
