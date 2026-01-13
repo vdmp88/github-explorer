@@ -1,4 +1,4 @@
-import RepoGrid from '@/components/features/RepoGrid'
+import { RepoGridPage } from '@/components/features/RepoGridPage'
 import { apiFetch } from '@/lib/api'
 import { GitHubSearchResponse } from '@/types/github'
 
@@ -8,7 +8,7 @@ export default async function Home() {
     )
 
     return (
-        <RepoGrid
+        <RepoGridPage
             initialData={{
                 items: data.items,
                 totalCount: data.total_count,
