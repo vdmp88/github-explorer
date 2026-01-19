@@ -21,7 +21,7 @@ export default function NotFound() {
                     Page Not Found
                 </Typography>
                 <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-                    Sorry, the page you're looking for doesn't exist.
+                    Sorry, the page you&apos;re looking for doesn&apos;t exist.
                 </Typography>
                 <Link href="/" passHref>
                     <Button variant="contained" size="large">
