@@ -5,14 +5,11 @@ import Masonry from 'react-masonry-css'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { GitHubRepo } from '@/types/github'
 import { useEffect, useRef } from 'react'
+import { RepoPageData } from '@/app/page'
 
 interface RepoGridProps {
-    initialData: {
-        items: GitHubRepo[]
-        totalCount: number
-        page: number
-        perPage: number
-    }
+    initialData: RepoPageData
+    search: string
 }
 
 const breakpointCols = {
@@ -22,7 +19,7 @@ const breakpointCols = {
     500: 1,
 }
 
-export default function RepoGrid({ initialData, search }: any) {
+export default function RepoGrid({ initialData, search }: RepoGridProps) {
     const query = search ? `${search} stars:>1` : 'stars:>1'
 
     const { items: initialItems, totalCount, page: initialPage, perPage } = initialData
