@@ -15,16 +15,11 @@ export default async function Home() {
     )
 
     const initialData: RepoPageData = {
-    items: data.items,
-    totalCount: data.total_count,
-    page: 1,
-    perPage: 20,
-}
+        items: data.items,
+        totalCount: data.total_count,
+        page: 1,
+        perPage: 20,
+    }
 
-
-    return (
-        <RepoGridPage
-            initialData={initialData}
-        />
-    )
+    return <RepoGridPage initialData={initialData} />
 }
