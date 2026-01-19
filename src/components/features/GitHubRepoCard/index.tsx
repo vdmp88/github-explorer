@@ -1,6 +1,6 @@
 import { Card, CardContent, CardActions, Button, Typography, Avatar, Box, Link, Divider } from '@mui/material'
 import { Star, Language as LanguageIcon, Visibility as VisibilityIcon } from '@mui/icons-material'
-import { GitHubRepo } from '@/types'
+import { GitHubRepo } from '@/types/github'
 
 interface GitHubRepoCardProps {
     repo: GitHubRepo

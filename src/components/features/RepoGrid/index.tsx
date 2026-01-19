@@ -22,14 +22,18 @@ const breakpointCols = {
     500: 1,
 }
 
-export default function RepoGrid({ initialData }: RepoGridProps) {
+export default function RepoGrid({ initialData, search }: any) {
+    const query = search ? `${search} stars:>1` : 'stars:>1'
+
     const { items: initialItems, totalCount, page: initialPage, perPage } = initialData
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: ['repos'],
-        queryFn: async ({ pageParam = initialPage }) => {
+        queryKey: ['repos', search],
+        queryFn: async ({ pageParam = 1 }) => {
             const res = await fetch(
-                `https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=${perPage}&page=${pageParam}`
+                `https://api.github.com/search/repositories?q=${encodeURIComponent(
+                    query
+                )}&sort=stars&order=desc&per_page=${perPage}&page=${pageParam}`
             )
             const json = await res.json()
             return {
@@ -42,10 +46,12 @@ export default function RepoGrid({ initialData }: RepoGridProps) {
             const loadedItems = allPages.reduce((acc, page) => acc + page.items.length, 0)
             return loadedItems < totalCount ? lastPage.nextPage : undefined
         },
-        initialData: {
-            pages: [{ items: initialItems, totalCount, nextPage: initialPage + 1 }],
-            pageParams: [initialPage],
-        },
+        initialData: !search
+            ? {
+                  pages: [{ items: initialItems, totalCount, nextPage: initialPage + 1 }],
+                  pageParams: [initialPage],
+              }
+            : undefined,
         initialPageParam: initialPage,
     })
 
@@ -55,8 +61,6 @@ export default function RepoGrid({ initialData }: RepoGridProps) {
 
     useEffect(() => {
         if (!loadMoreRef.current || !hasNextPage) return
-
-        console.log('Setting up intersection observer')
 
         const observer = new IntersectionObserver(
             (entries) => {
