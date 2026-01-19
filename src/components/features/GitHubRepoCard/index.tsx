@@ -1,12 +1,24 @@
-import { Card, CardContent, CardActions, Button, Typography, Avatar, Box, Link, Divider } from '@mui/material'
+import {
+    Card,
+    CardContent,
+    CardActions,
+    Button,
+    Typography,
+    Avatar,
+    Box,
+    Link as MuiLink,
+    Divider,
+} from '@mui/material'
 import { Star, Language as LanguageIcon, Visibility as VisibilityIcon } from '@mui/icons-material'
 import { GitHubRepo } from '@/types/github'
+import Link from 'next/link'
 
 interface GitHubRepoCardProps {
     repo: GitHubRepo
 }
 
 export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
+    console.log('Rendering GitHubRepoCard for', repo.owner)
     return (
         <Card
             variant="outlined"
@@ -30,7 +42,9 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
                             {repo.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            Owner: {repo.owner.login}
+                            <MuiLink component={Link} href={`/profile/${repo.owner.id}`} underline="hover">
+                                Owner: {repo.owner.login}
+                            </MuiLink>
                         </Typography>
                     </Box>
                 </Box>
@@ -98,11 +112,11 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
             <Divider />
 
             <CardActions>
-                <Link href={repo.html_url} target="_blank" rel="noopener" underline="none">
+                <MuiLink href={repo.html_url} target="_blank" rel="noopener" underline="none">
                     <Button size="small" color="primary">
                         Go to repository
                     </Button>
-                </Link>
+                </MuiLink>
             </CardActions>
         </Card>
     )

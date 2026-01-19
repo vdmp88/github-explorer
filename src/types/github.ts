@@ -8,6 +8,7 @@ export interface GitHubRepo {
     owner: {
         avatar_url: string
         login: string
+        id: number
     }
     forks_count: number
 }
