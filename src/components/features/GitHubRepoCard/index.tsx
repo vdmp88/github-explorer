@@ -18,7 +18,6 @@ interface GitHubRepoCardProps {
 }
 
 export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
-    console.log('Rendering GitHubRepoCard for', repo.owner)
     return (
         <Card
             variant="outlined"
@@ -42,7 +41,7 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
                             {repo.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            <MuiLink component={Link} href={`/profile/${repo.owner.id}`} underline="hover">
+                            <MuiLink component={Link} href={`/profile/${repo.owner.login}`} underline="hover">
                                 Owner: {repo.owner.login}
                             </MuiLink>
                         </Typography>

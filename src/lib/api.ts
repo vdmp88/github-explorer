@@ -23,5 +23,5 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
         throw new Error(`Fetch error: ${res.status} ${res.statusText}`)
     }
 
-    return res.json()
+    return res.json() as Promise<T>
 }
