@@ -2,12 +2,12 @@ import {
     Card,
     CardContent,
     CardActions,
-    Button,
     Typography,
     Avatar,
     Box,
     Link as MuiLink,
     Divider,
+    Button,
 } from '@mui/material'
 import { Star, Language as LanguageIcon, Visibility as VisibilityIcon } from '@mui/icons-material'
 import { GitHubRepo } from '@/types/github'
@@ -111,7 +111,7 @@ export default function GitHubRepoCard({ repo }: GitHubRepoCardProps) {
             <Divider />
 
             <CardActions>
-                <MuiLink href={repo.html_url} target="_blank" rel="noopener" underline="none">
+                <MuiLink component={Link} href={`repo/${repo.owner.login}/${repo.name}`} underline="hover">
                     <Button size="small" color="primary">
                         Go to repository
                     </Button>
