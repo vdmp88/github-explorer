@@ -7,7 +7,7 @@ import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import { SignOut } from '@/components/features/SignOut'
-import { UserProfile } from './UserProfile'
+import { UserProfile } from '../UserProfile/UserProfile'
 
 const drawerWidth = 320
 
