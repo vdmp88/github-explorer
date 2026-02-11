@@ -1,33 +1,66 @@
-'use client' // Error boundaries must be Client Components
+'use client'
 
-import { Container, Typography, Button, Box } from '@mui/material'
-import { Error as ErrorIcon, Refresh } from '@mui/icons-material'
+import { Box, Button, Card, CardContent, Typography, Alert, Collapse } from '@mui/material'
+import { useState } from 'react'
 
-export default function Error({ error: _error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+    const [showDetails, setShowDetails] = useState(false)
+
     return (
-        <Container
-            maxWidth="sm"
+        <Box
             sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
                 justifyContent: 'center',
-                minHeight: '100vh',
-                textAlign: 'center',
+                mt: 8,
+                px: 2,
             }}
         >
-            <Box sx={{ mb: 4 }}>
-                <ErrorIcon sx={{ fontSize: 80, color: 'error.main', mb: 2 }} />
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Oops! Something went wrong
-                </Typography>
-                <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                    We encountered an unexpected error. Please try again or contact support if the problem persists.
-                </Typography>
-            </Box>
-            <Button variant="contained" color="primary" startIcon={<Refresh />} onClick={() => reset()} size="large">
-                Try Again
-            </Button>
-        </Container>
+            <Card
+                sx={{
+                    maxWidth: 500,
+                    width: '100%',
+                    borderRadius: 3,
+                    boxShadow: 4,
+                }}
+            >
+                <CardContent>
+                    <Alert severity="error" sx={{ mb: 2 }}>
+                        Dashboard failed to load
+                    </Alert>
+
+                    <Typography variant="h6" gutterBottom>
+                        Something broke in this section.
+                    </Typography>
+
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                        This error is local to the dashboard page.
+                    </Typography>
+
+                    <Button variant="contained" onClick={() => reset()} sx={{ mr: 2 }}>
+                        Retry
+                    </Button>
+
+                    <Button variant="text" onClick={() => setShowDetails((prev) => !prev)}>
+                        {showDetails ? 'Hide details' : 'Show details'}
+                    </Button>
+
+                    <Collapse in={showDetails}>
+                        <Box
+                            sx={{
+                                mt: 2,
+                                p: 2,
+                                bgcolor: 'grey.100',
+                                borderRadius: 2,
+                                fontSize: 12,
+                                fontFamily: 'monospace',
+                                wordBreak: 'break-word',
+                            }}
+                        >
+                            {error.message}
+                        </Box>
+                    </Collapse>
+                </CardContent>
+            </Card>
+        </Box>
     )
 }
