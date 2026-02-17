@@ -2,10 +2,20 @@ import RepositoryCard from '@/components/features/RepositoryCard'
 import { apiFetch } from '@/lib/api'
 import { Box, Typography, Grid } from '@mui/material'
 
-export default async function Repositories({ params }: { params: Promise<{ username: string }> }) {
+export default async function Repositories({
+    params,
+    searchParams,
+}: {
+    params: Promise<{ username: string }>
+    searchParams: Promise<{ page?: string; perPage?: string }>
+}) {
     const { username } = await params
-    const repos: any[] = await apiFetch(`/users/${username}/repos?per_page=10&page=1`)
-    console.log(repos, 'repos')
+    const resolvedSearchParams = await searchParams
+    const page = Number(resolvedSearchParams.page ?? 1)
+    const perPage = Number(resolvedSearchParams.perPage ?? 9)
+    const repos: any[] = await apiFetch(`/users/${username}/repos?per_page=${perPage}&page=${page}`)
+    console.log('params', params);
+    console.log('searchParams', resolvedSearchParams.perPage, resolvedSearchParams.page);
 
     return (
         <Box sx={{ flexGrow: 1, p: 3, backgroundColor: 'grey.50', minHeight: '100vh' }}>
