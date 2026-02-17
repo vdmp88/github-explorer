@@ -4,8 +4,13 @@ import CssBaseline from '@mui/material/CssBaseline'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
+import HomeIcon from '@mui/icons-material/Home'
+import Link from 'next/link'
 import { SignOut } from '@/components/features/SignOut'
 import { UserProfile } from '../UserProfile/UserProfile'
 
@@ -48,6 +53,15 @@ export function Sidebar({ children }: SidebarProps) {
                 <Divider />
                 <List>
                     <UserProfile />
+                    <Divider />
+                    <Link href="/" style={{ textDecoration: 'none' }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItemButton>
+                    </Link>
                     <Divider />
                 </List>
                 <SignOut />
