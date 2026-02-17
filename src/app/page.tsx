@@ -1,6 +1,6 @@
 import { RepoGridPage } from '@/components/features/RepoGridPage'
 import { apiFetch } from '@/lib/api'
-import { GitHubRepo, GitHubSearchResponse } from '@/types/github'
+import { GitHubRepo } from '@/types/github'
 
 export interface RepoPageData {
     items: GitHubRepo[]
@@ -10,9 +10,7 @@ export interface RepoPageData {
 }
 
 export default async function Home() {
-    const data: GitHubSearchResponse = await apiFetch(
-        '/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=20&page=1'
-    )
+    const { data }: any = await apiFetch('/search/repositories?q=stars:>1&sort=stars&order=desc&per_page=20&page=1')
 
     const initialData: RepoPageData = {
         items: data.items,

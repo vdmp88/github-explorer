@@ -1,10 +1,9 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { getServerSession } from 'next-auth'
 
-export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): Promise<{ data: T; headers: Headers }> {
     const session = await getServerSession(authOptions)
-    
-    if (!session?.accessToken) throw new Error("Unauthorized");
+    if (!session?.accessToken) throw new Error('Unauthorized')
 
     const headers = {
         Accept: 'application/vnd.github.v3+json',
@@ -23,5 +22,6 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
         throw new Error(`Fetch error: ${res.status} ${res.statusText}`)
     }
 
-    return res.json() as Promise<T>
+    const data = await res.json()
+    return { data, headers: res.headers }
 }
