@@ -3,10 +3,10 @@ import { Box } from '@mui/material'
 
 export default function DashboardLayout({
     repositories,
-    anything,
+    // anything,
 }: {
     repositories: React.ReactNode
-    anything: React.ReactNode
+    // anything: React.ReactNode
 }) {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -14,7 +14,7 @@ export default function DashboardLayout({
                 <BackButton />
             </Box>
             <Box sx={{ p: 2, flexGrow: 1 }}>
-                {anything}
+                {/* {anything} */}
                 {repositories}
             </Box>
         </Box>
