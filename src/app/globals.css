@@ -40,3 +40,20 @@ a {
         color-scheme: dark;
     }
 }
+
+.my-masonry-grid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-left: -24px;
+    width: auto;
+}
+
+.my-masonry-grid_column {
+    padding-left: 24px;
+    background-clip: padding-box;
+}
+
+.my-masonry-grid_column > div {
+    margin-bottom: 24px;
+}

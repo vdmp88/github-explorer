@@ -1,5 +1,4 @@
 .page {
-    --background: #fafafa;
     --foreground: #fff;
 
     --text-primary: #000;
@@ -14,7 +13,6 @@
     align-items: center;
     justify-content: center;
     font-family: var(--font-geist-sans);
-    background-color: var(--background);
 }
 
 .main {
