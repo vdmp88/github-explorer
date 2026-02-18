@@ -1,7 +1,7 @@
 import RepositoryCard from '@/components/features/RepositoriesSlot/RepositoryCard'
 import ReposPagination from '@/components/features/RepositoriesSlot/ReposPagination'
 import { apiFetch } from '@/lib/api'
-import { Box, Typography, Grid, Stack } from '@mui/material'
+import { Box, Typography, Grid, Stack, Paper } from '@mui/material'
 
 export default async function Repositories({
     params,
@@ -31,22 +31,49 @@ export default async function Repositories({
     }
 
     return (
-        <Box sx={{ flexGrow: 1, p: 3, backgroundColor: 'grey.50', minHeight: '100vh' }}>
-            <Typography variant="h5" component="h2" gutterBottom sx={{ mb: 4, fontWeight: 'bold' }}>
-                Repositories for <span style={{ color: '#6A1B9A' }}>@{username}</span>
-            </Typography>
+        <Box sx={{ height: '100%' }}>
+            <Paper
+                sx={{
+                    height: '100%',
+                    borderRadius: 3,
+                    p: 3.5,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    border: '1px solid',
+                    borderColor: 'grey.200',
+                    backgroundColor: 'background.paper',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                }}
+            >
+                <Box sx={{ mb: 3 }}>
+                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                        Repositories for{' '}
+                        <Box
+                            component="span"
+                            sx={{
+                                color: 'primary.main',
+                                fontWeight: 700,
+                            }}
+                        >
+                            @{username}
+                        </Box>
+                    </Typography>
+                </Box>
 
-            <Grid container spacing={3}>
-                {data.map((repo: any) => (
-                    <Grid size={{ xs: 12, sm: 6, md: 4 }} key={repo.id}>
-                        <RepositoryCard repo={repo} />
+                <Box sx={{ flex: 1 }}>
+                    <Grid container spacing={3}>
+                        {data.map((repo: any) => (
+                            <Grid key={repo.id} size={{ sm: 12, md: 6 }}>
+                                <RepositoryCard repo={repo} />
+                            </Grid>
+                        ))}
                     </Grid>
-                ))}
-            </Grid>
 
-            <Stack spacing={2} sx={{ mt: 4 }} alignItems="center">
-                <ReposPagination totalPages={totalPages} />
-            </Stack>
+                    <Stack spacing={2} alignItems="center" sx={{ mt: 4 }}>
+                        <ReposPagination totalPages={totalPages} />
+                    </Stack>
+                </Box>
+            </Paper>
         </Box>
     )
 }
