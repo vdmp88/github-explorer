@@ -60,7 +60,7 @@ export default async function Repositories({
                     </Typography>
                 </Box>
 
-                <Box sx={{ flex: 1 }}>
+                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <Grid container spacing={3}>
                         {data.map((repo: any) => (
                             <Grid key={repo.id} size={{ sm: 12, md: 6 }}>
@@ -69,7 +69,7 @@ export default async function Repositories({
                         ))}
                     </Grid>
 
-                    <Stack spacing={2} alignItems="center" sx={{ mt: 4 }}>
+                    <Stack spacing={2} alignItems="center" sx={{ mt: 'auto', pt: 4 }}>
                         <ReposPagination totalPages={totalPages} />
                     </Stack>
                 </Box>
