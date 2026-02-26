@@ -15,7 +15,6 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
         ...options,
         headers,
-        next: { revalidate: 3600 },
     })
 
     if (!res.ok) {
