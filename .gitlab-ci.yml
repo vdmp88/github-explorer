@@ -1,0 +1,60 @@
+# Используем Docker in Docker для сборки образов
+image: docker:24.0.5
+services:
+    - docker:24.0.5-dind
+
+# Переменные для Docker (GitLab сам подставит сюда нужные значения)
+variables:
+    DOCKER_TLS_CERTDIR: '/certs'
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+
+# Наши два основных этапа
+stages:
+    - build
+    - deploy
+
+# ============================================
+# Этап 1: Сборка Docker-образа
+# ============================================
+build_image:
+    stage: build
+    script:
+        # Логинимся во встроенный GitLab Registry (используем бесплатные встроенные переменные)
+        - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+        # Собираем образ из твоего Dockerfile
+        - docker build -t $IMAGE_TAG .
+        # Пушим готовый образ в хранилище GitLab
+        - docker push $IMAGE_TAG
+    only:
+        - main # Пайплайн будет запускаться только при пуше в ветку main
+
+# ============================================
+# Этап 2: Деплой на твой личный сервер
+# ============================================
+deploy_to_server:
+    stage: deploy
+    # Для этого шага нам нужен не докер, а легкий линукс, чтобы зайти по SSH
+    image: alpine:latest
+    before_script:
+        # Устанавливаем SSH клиент
+        - apk add --no-cache openssh-client
+        # Выдаем правильные права нашему файлу с ключом (он лежит в переменной типа File)
+        - chmod 400 $SSH_PRIVATE_KEY
+script:
+    - |
+      ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY -p $SERVER_PORT $SERVER_USER@$SERVER_IP "
+        docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+        docker pull $IMAGE_TAG &&
+        docker stop my-nextjs-app || true &&
+        docker rm my-nextjs-app || true &&
+        
+        # Запускаем контейнер и скармливаем ему файл с секретами, который лежит на сервере
+        docker run -d \
+          --name my-nextjs-app \
+          -p 3000:3000 \
+          --env-file /home/pakharuk/.env \
+          --restart unless-stopped \
+          $IMAGE_TAG
+      "
+    only:
+        - main # Деплоим тоже только из главной ветки
